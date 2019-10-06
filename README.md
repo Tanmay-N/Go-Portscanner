@@ -9,12 +9,12 @@ A port scanner written in Go language which scans TCP Ports with very simple thr
 Installation 
 
 ```javascript 
-git clone https://github.com/Tanmay9511/Go-Portscanner.git
+git clone https://github.com/Tanmay-N/Go-Portscanner.git
 ```
 
 Or 
 ```javascript 
-go get -u github.com/Tanmay9511/Go-Portscanner 
+go get -u https://github.com/Tanmay-N/Go-Portscanner
 ```
 
 Usage
