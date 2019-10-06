@@ -4,7 +4,7 @@
 # Go-Portscanner
 Port Scanner in Go language
 
-A port scanner written in Go language to hone my skills with sockets and threads.
+A port scanner written in Go language which scans TCP Ports with very simple thread-safe which should work on every OS without any problems.
 
 Installation 
 
