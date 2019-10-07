@@ -6,7 +6,7 @@ Port Scanner in Go language
 
 A port scanner written in Go language which scans TCP Ports with very simple thread-safe which should work on every OS without any problems.
 
-##Installation 
+## Installation 
 
 ```javascript 
 git clone https://github.com/Tanmay-N/Go-Portscanner.git
@@ -17,7 +17,7 @@ Or
 go get -u https://github.com/Tanmay-N/Go-Portscanner
 ```
 
-##Usage
+## Usage
 
 ```javascript 
 go run .\scanner.go -IP="scanme.nmap.org"
