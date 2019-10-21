@@ -25,7 +25,7 @@ go get -u github.com/Tanmay-N/Go-Portscanner
 go run .\scanner.go -IP="scanme.nmap.org"
 ```
 
-## Docker
+## Docker installation
 
 To start a port-scan container, simply run gievn command in docker:
 
