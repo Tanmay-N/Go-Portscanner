@@ -26,11 +26,5 @@ go run .\scanner.go -IP="scanme.nmap.org"
 ## Docker
 
 ```javascript
-docker run -it --rm scanner-demo10 -IP="<domain>"
-```
-
-Example 
-
-```javascript
-docker run -it --rm scanner-demo10 -IP="scanme.nmap.org"
+docker run -it tanmay95/go-portscanner -IP="scanme.nmap.org"
 ```
