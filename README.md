@@ -4,7 +4,9 @@
 # Go-Portscanner
 Port Scanner in Go language
 
-A port scanner written in Go language which scans TCP Ports with very simple thread-safe which should work on every OS without any problems.
+A port scanner written in Go language which scans TCP Ports with very simple thread-safe which should work on every OS without any problems. Port scanning will perform 65535 ports and show the results.
+
+Docker implemention are also availabe for port scanning
 
 ## Installation 
 
@@ -24,6 +26,8 @@ go run .\scanner.go -IP="scanme.nmap.org"
 ```
 
 ## Docker
+
+To start a port-scan container, simply run gievn command in docker:
 
 ```javascript
 docker run -it tanmay95/go-portscanner -IP="scanme.nmap.org"
