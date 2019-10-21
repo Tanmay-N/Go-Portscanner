@@ -14,7 +14,7 @@ git clone https://github.com/Tanmay-N/Go-Portscanner.git
 
 Or 
 ```javascript 
-go get -u https://github.com/Tanmay-N/Go-Portscanner
+go get -u github.com/Tanmay-N/Go-Portscanner
 ```
 
 ## Usage
@@ -23,3 +23,14 @@ go get -u https://github.com/Tanmay-N/Go-Portscanner
 go run .\scanner.go -IP="scanme.nmap.org"
 ```
 
+## Docker
+
+```javascript
+docker run -it --rm scanner-demo10 -IP="<domain>"
+```
+
+Example 
+
+```javascript
+docker run -it --rm scanner-demo10 -IP="scanme.nmap.org"
+```
