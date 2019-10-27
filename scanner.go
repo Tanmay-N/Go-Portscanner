@@ -1,8 +1,10 @@
 package main
 
 import (
+	"flag"
 	"fmt"
 	"net"
+	"os"
 	"regexp"
 	"sort"
 	"strconv"
@@ -15,8 +17,20 @@ import (
 type IPv4 [4]int
 
 func main() {
-	var portsList = []string{"1-1024"}
-	var IPsListapp = []string{"scanme.nmap.org"}
+	var portsList []string
+	var IPsListapp []string
+
+	var ports = flag.String("port", "22", "Specify the port")
+	var ips = flag.String("ip", "scanme.nmap.org", "Specify the ipaddress")
+	all := flag.Bool("A", false, "Scans from port 1 to 1024")
+	flag.Parse()
+
+	if *all {
+		*ports = "1-1024"
+	}
+
+	portsList = append(portsList, *ports)
+	IPsListapp = append(IPsListapp, *ips)
 
 	IPScanner(IPsListapp, portsList, true)
 
@@ -31,7 +45,7 @@ func IPScanner(ipstr []string, portStr []string, printResults bool) map[IPv4][]s
 	var portList []string
 
 	var wg sync.WaitGroup
-
+	//regMail, _ := regexp.Compile(`[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,6}`)
 	if len(portStr) == 1 {
 		portList = ParsePortList(portStr[0])
 	} else {
@@ -48,6 +62,8 @@ func IPScanner(ipstr []string, portStr []string, printResults bool) map[IPv4][]s
 				ip := ToIPv4(i)
 				if ip.IsValid() {
 					ipList = append(ipList, ip)
+				} else {
+					ipList = append(ipList, domainToIP(i))
 				}
 			}
 		}
@@ -63,6 +79,8 @@ func IPScanner(ipstr []string, portStr []string, printResults bool) map[IPv4][]s
 				if printResults {
 					PresentResults(ip, result)
 				}
+			} else {
+				fmt.Println("nothing found", result)
 			}
 		}(ip)
 	}
@@ -79,12 +97,10 @@ func PortScanner(ip IPv4, portList []string) []string {
 
 	for _, port := range portList {
 
-		conn, err := net.DialTimeout("tcp",
-			ip.ToString()+":"+port,
-			100*time.Millisecond)
+		_, err := net.DialTimeout("tcp", ip.ToString()+":"+port, time.Second*50)
 
 		if err == nil {
-			conn.Close()
+			//conn.Close()
 			open = append(open, port)
 		}
 	}
@@ -243,4 +259,21 @@ func PresentResults(ip IPv4, ports []string) int {
 		fmt.Println(" " + port + "\t" + portShortList[port])
 	}
 	return 0
+}
+
+func domainToIP(ip string) IPv4 {
+	var arrayIps IPv4
+
+	ip4address, err := net.ResolveIPAddr("ip4", ip)
+	if err != nil {
+		fmt.Println("Fail to resolve IP4", err.Error())
+		os.Exit(1)
+	}
+
+	i := ip4address.String()
+
+	arrayIps = ToIPv4(i)
+
+	return arrayIps
+
 }
