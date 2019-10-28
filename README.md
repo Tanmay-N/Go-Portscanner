@@ -11,19 +11,40 @@ Docker implemention are also availabe for port scanning
 ## Installation 
 
 ```javascript 
-git clone https://github.com/Tanmay-N/Go-Portscanner.git
+git clone https://github.com/Tanmay-N/Go-Portscanner.git portscanner
+cd portscanner
+go build scanner.go -o scanner
 ```
-
 Or 
+
 ```javascript 
 go get -u github.com/Tanmay-N/Go-Portscanner
 ```
 
 ## Usage
 
+### Get help
+
+```javascript 
+scanner.go -h 
+-IP string
+        IP Address/Domain name. (Required) (default "127.0.0.1")
+```
+Shows the available options.
+
+### Localhost Port Scan
+
+```javascript 
+go run .\scanner.go 
+```
+Scans all local machine ports, from 1 to 65535.
+
+### Port Scan on Domain 
+
 ```javascript 
 go run .\scanner.go -IP="scanme.nmap.org"
 ```
+Scan for particular domain.
 
 ## Docker installation
 
