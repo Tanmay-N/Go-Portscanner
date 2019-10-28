@@ -46,6 +46,13 @@ go run .\scanner.go -IP="scanme.nmap.org"
 ```
 Scan for particular domain.
 
+### Network Discovery 
+
+```javascript 
+go run .\scanner.go -IP="192.168.0.1-225"
+```
+Looks for HTTP or FTP servers on 192.168.0.0/24.
+
 ## Docker installation
 
 To start a port-scan container, simply run gievn command in docker:
