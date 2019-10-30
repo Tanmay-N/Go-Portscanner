@@ -5,8 +5,10 @@ import (
 	"fmt"
 	"net"
 	"os"
+	"os/exec"
 	"os/signal"
 	"regexp"
+	"runtime"
 	"strconv"
 	"strings"
 	"syscall"
@@ -43,7 +45,7 @@ func fastScan(ip string) {
 
 	for _, i := range ipList {
 
-		if resolveIP(i) {
+		if osChek(i) {
 			fmt.Println("scanning started", i)
 			scanresult := `----------------------------
         SCAN RESULTS
@@ -192,4 +194,36 @@ func ToString(s int) string {
 
 	i := strconv.Itoa(s)
 	return i
+}
+
+func osChek(ip string) bool {
+	switch runtime.GOOS {
+	case "Windows":
+		return resolveIP(ip)
+	case "linux":
+		fmt.Println("Tuesday")
+		return true
+	case "darwin":
+		return pingForMac(ip)
+	default:
+		fmt.Println("Not supported for the OS")
+		return false
+	}
+
+}
+
+func pingForMac(ip string) bool {
+	Command := fmt.Sprintf("ping -c 1 " + ip + " > /dev/null && echo true || echo false")
+	output, err := exec.Command("/bin/sh", "-c", Command).Output()
+	test := string(output)
+	if strings.Contains(test, "true") {
+		return true
+	}
+
+	if err != nil {
+		fmt.Println("found error")
+		return false
+	}
+	return false
+
 }
