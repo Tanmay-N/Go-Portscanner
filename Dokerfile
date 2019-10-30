@@ -1,0 +1,14 @@
+FROM golang:alpine AS builder
+
+LABEL maintainer="Tanmay Nashte <tnashte95@gmail.com>"
+
+# Install the Certificate-Authority certificates for the app to be able to make
+# calls to HTTPS endpoints.
+# Git is required for fetching the dependencies.
+RUN apk add --no-cache ca-certificates git
+
+WORKDIR /go/bin
+
+RUN go get -u github.com/Tanmay-N/Go-Portscanner
+
+ENTRYPOINT ["./Go-Portscanner"]
