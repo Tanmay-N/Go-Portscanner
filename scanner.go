@@ -60,7 +60,7 @@ func fastScan(ip string) {
 
 			for port := 0; port <= 65535; port++ {
 				go scanTCPConnection(target, port, doneChannel, &val)
-				time.Sleep(time.Nanosecond)
+				time.Sleep(time.Millisecond)
 				activeThreads++
 			}
 
@@ -83,7 +83,7 @@ func fastScan(ip string) {
 
 func scanTCPConnection(ip string, port int, doneChannel chan bool, val *int) {
 	_, err := net.DialTimeout("tcp", ip+":"+strconv.Itoa(port),
-		time.Second*10)
+		time.Second*1)
 	if err == nil {
 		fmt.Println(port, "\tOpen\t", portShortList[ToString(port)])
 		*val = *val + 1
