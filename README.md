@@ -8,6 +8,8 @@ A port scanner written in Go language which scans TCP Ports with very simple thr
 
 Docker implemention are also availabe for port scanning
 
+![alt text](https://github.com/Tanmay-N/Go-Portscanner/blob/master/GO_Portscanner%20Screenshot.png?raw=true)
+
 ## Installation 
 
 ```javascript 
