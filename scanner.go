@@ -197,17 +197,14 @@ func ToString(s int) string {
 }
 
 func osChek(ip string) bool {
-	switch runtime.GOOS {
-	case "Windows":
-		return resolveIP(ip)
+	switch os := runtime.GOOS; os {
 	case "linux":
-		fmt.Println("Tuesday")
-		return true
+		return pingForMac(ip)
 	case "darwin":
 		return pingForMac(ip)
 	default:
 		fmt.Println("Not supported for the OS")
-		return false
+		return resolveIP(ip)
 	}
 
 }
