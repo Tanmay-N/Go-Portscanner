@@ -31,10 +31,11 @@ func main() {
 		os.Exit(1)
 	}
 
-	fastScan(*textPtr)
+	FastScan(*textPtr)
 }
 
-func fastScan(ip string) {
+//FastScan takes IP as a String
+func FastScan(ip string) {
 	var ipList []string
 
 	if strings.Contains(ip, "-") {
@@ -51,7 +52,6 @@ func fastScan(ip string) {
         SCAN RESULTS
 ----------------------------`
 			fmt.Println(scanresult)
-			//      time.Sleep(time.Millisecond * 10)
 			target := ip
 			start := time.Now()
 			activeThreads := 0
@@ -93,7 +93,7 @@ func scanTCPConnection(ip string, port int, doneChannel chan bool, val *int) {
 	doneChannel <- true
 }
 
-//Ping the Domain and return Bool Value
+//Ping the Domain and return Bool Value (For Windows)
 func resolveIP(host string) bool {
 
 	hostname := host
@@ -182,14 +182,14 @@ func ParseIPSequence(ipSequence string) []string {
 	return arrayIps
 }
 
-//ToInt asdhgas
+//ToInt is to convert into integer
 func ToInt(s string) int {
 
 	i, _ := strconv.Atoi(s)
 	return i
 }
 
-//ToString asdasd
+//ToString is to convert into String
 func ToString(s int) string {
 
 	i := strconv.Itoa(s)
@@ -199,9 +199,9 @@ func ToString(s int) string {
 func osChek(ip string) bool {
 	switch os := runtime.GOOS; os {
 	case "linux":
-		return pingForMac(ip)
+		return pingIP(ip)
 	case "darwin":
-		return pingForMac(ip)
+		return pingIP(ip)
 	default:
 		fmt.Println("Not supported for the OS")
 		return resolveIP(ip)
@@ -209,7 +209,7 @@ func osChek(ip string) bool {
 
 }
 
-func pingForMac(ip string) bool {
+func pingIP(ip string) bool {
 	Command := fmt.Sprintf("ping -c 1 " + ip + " > /dev/null && echo true || echo false")
 	output, err := exec.Command("/bin/sh", "-c", Command).Output()
 	test := string(output)
